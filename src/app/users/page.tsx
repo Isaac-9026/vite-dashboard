@@ -2,87 +2,44 @@
 
 import { useState } from "react"
 import { BaseLayout } from "@/components/layouts/base-layout"
-import { StatCards } from "./components/stat-cards"
 import { DataTable } from "./components/data-table"
 
-import initialUsersData from "./data.json"
-
-interface User {
+interface Saldo {
   id: number
-  name: string
-  email: string
-  avatar: string
-  role: string
-  plan: string
-  billing: string
-  status: string
-  joinedDate: string
-  lastLogin: string
+  codigo: string
+  descripcion: string
+  fecha: string
+  cantidad: number
+  costo_unitario: number
+  costo_total: number
 }
 
-interface UserFormValues {
-  name: string
-  email: string
-  role: string
-  plan: string
-  billing: string
-  status: string
-}
+// Aquí va tu JSON de saldos
+const initialSaldosData = [
+  { codigo: "001", descripcion: "Producto A", fecha: "2024-05-01", cantidad: 10, costo_unitario: 50, costo_total: 500 },
+  { codigo: "002", descripcion: "Producto B", fecha: "2024-05-02", cantidad: 5, costo_unitario: 100, costo_total: 500 },
+  { codigo: "003", descripcion: "Producto C", fecha: "2024-05-03", cantidad: 20, costo_unitario: 25, costo_total: 500 },
+].map((s, index) => ({ id: index + 1, ...s })) // Generamos IDs automáticos
 
-export default function UsersPage() {
-  const [users, setUsers] = useState<User[]>(initialUsersData)
+export default function SaldosPage() {
+  const [saldos, setSaldos] = useState<Saldo[]>(initialSaldosData)
 
-  const generateAvatar = (name: string) => {
-    const names = name.split(" ")
-    if (names.length >= 2) {
-      return `${names[0][0]}${names[1][0]}`.toUpperCase()
-    }
-    return name.substring(0, 2).toUpperCase()
+  const handleEditSaldo = (saldo: Saldo) => {
+    console.log("Editar saldo:", saldo)
   }
 
-  const handleAddUser = (userData: UserFormValues) => {
-    const newUser: User = {
-      id: Math.max(...users.map(u => u.id)) + 1,
-      name: userData.name,
-      email: userData.email,
-      avatar: generateAvatar(userData.name),
-      role: userData.role,
-      plan: userData.plan,
-      billing: userData.billing,
-      status: userData.status,
-      joinedDate: new Date().toISOString().split('T')[0],
-      lastLogin: new Date().toISOString().split('T')[0],
-    }
-    setUsers(prev => [newUser, ...prev])
-  }
-
-  const handleDeleteUser = (id: number) => {
-    setUsers(prev => prev.filter(user => user.id !== id))
-  }
-
-  const handleEditUser = (user: User) => {
-    // For now, just log the user to edit
-    // In a real app, you'd open an edit dialog
-    console.log("Edit user:", user)
+  const handleDeleteSaldo = (id: number) => {
+    setSaldos(prev => prev.filter(s => s.id !== id))
   }
 
   return (
-    <BaseLayout 
-      title="Users" 
-      description="Manage your users and their permissions"
-    >
+    <BaseLayout title="Saldos" description="Gestiona tus saldos">
       <div className="flex flex-col gap-4">
-        <div className="@container/main px-4 lg:px-6">
-          <StatCards />
-        </div>
-        
-        <div className="@container/main px-4 lg:px-6 mt-8 lg:mt-12">
-         
-          <DataTable 
-            users={users}
-            onDeleteUser={handleDeleteUser}
-            onEditUser={handleEditUser}
-            onAddUser={handleAddUser}
+        <div className="@container/main px-4 lg:px-6 mt-8 lg:mt-1">
+          <DataTable
+            saldos={saldos}
+            onEdit={handleEditSaldo}
+            onDelete={handleDeleteSaldo}
           />
         </div>
       </div>
