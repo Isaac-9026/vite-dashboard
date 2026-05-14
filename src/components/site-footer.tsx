@@ -16,11 +16,11 @@ export function SiteFooter() {
               rel="noopener noreferrer"
               className="font-medium text-foreground hover:text-primary transition-colors"
             >
-              ShadcnStore Team
+              ABCDFGH
             </Link>
           </div>
           <p className="text-xs text-muted-foreground">
-            Building beautiful, accessible blocks, templates and dashboards for modern web applications.
+            En proceso
           </p>
         </div>
       </div>
