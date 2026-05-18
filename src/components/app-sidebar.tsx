@@ -45,10 +45,10 @@ const data = {
       ],
     },
     {
-      label: "Apps",
+      label: "Registro",
       items: [
         {
-          title: "Users",
+          title: "Saldos Iniciales",
           url: "/users",
           icon: Users,
         },

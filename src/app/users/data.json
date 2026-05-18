@@ -1,7 +1,7 @@
 [
   {
     "codigo": 1,
-    "descripcion": "Sarah Johnson",
+    "descripcion": "Maíz Morado",
     "fecha": "2024-01-15",
     "cantidad": 12,
     "costo_unitario": 120,
@@ -9,7 +9,7 @@
   },
   {
     "codigo": 2,
-    "descripcion": "Michael Chen",
+    "descripcion": "Chuño",
     "fecha": "2024-02-20",
     "cantidad": 8,
     "costo_unitario": 200,
@@ -17,7 +17,7 @@
   },
   {
     "codigo": 3,
-    "descripcion": "Emily Rodriguez",
+    "descripcion": "Quinua",
     "fecha": "2024-03-10",
     "cantidad": 5,
     "costo_unitario": 150,
@@ -25,7 +25,7 @@
   },
   {
     "codigo": 4,
-    "descripcion": "David Thompson",
+    "descripcion": "Papa Amarilla",
     "fecha": "2024-01-25",
     "cantidad": 20,
     "costo_unitario": 80,
@@ -33,7 +33,7 @@
   },
   {
     "codigo": 5,
-    "descripcion": "Jessica Parker",
+    "descripcion": "Tarwi",
     "fecha": "2024-04-05",
     "cantidad": 15,
     "costo_unitario": 50,
@@ -41,7 +41,7 @@
   },
   {
     "codigo": 6,
-    "descripcion": "Robert Wilson",
+    "descripcion": "Kiwicha",
     "fecha": "2024-02-14",
     "cantidad": 10,
     "costo_unitario": 100,
@@ -49,7 +49,7 @@
   },
   {
     "codigo": 7,
-    "descripcion": "Amanda Foster",
+    "descripcion": "Olluco",
     "fecha": "2024-03-22",
     "cantidad": 7,
     "costo_unitario": 180,
@@ -57,7 +57,7 @@
   },
   {
     "codigo": 8,
-    "descripcion": "Christopher Lee",
+    "descripcion": "Mashua",
     "fecha": "2024-01-30",
     "cantidad": 9,
     "costo_unitario": 250,
@@ -65,7 +65,7 @@
   },
   {
     "codigo": 9,
-    "descripcion": "Lisa Martinez",
+    "descripcion": "Cañihua",
     "fecha": "2024-04-18",
     "cantidad": 6,
     "costo_unitario": 300,
@@ -73,7 +73,7 @@
   },
   {
     "codigo": 10,
-    "descripcion": "James Anderson",
+    "descripcion": "Maca",
     "fecha": "2024-02-28",
     "cantidad": 14,
     "costo_unitario": 75,
@@ -81,7 +81,7 @@
   },
   {
     "codigo": 11,
-    "descripcion": "Maria Garcia",
+    "descripcion": "Frejol Canario",
     "fecha": "2024-03-15",
     "cantidad": 11,
     "costo_unitario": 90,
@@ -89,7 +89,7 @@
   },
   {
     "codigo": 12,
-    "descripcion": "Kevin Taylor",
+    "descripcion": "Arroz Integral",
     "fecha": "2024-04-12",
     "cantidad": 13,
     "costo_unitario": 60,
@@ -97,7 +97,7 @@
   },
   {
     "codigo": 13,
-    "descripcion": "Rachel Brown",
+    "descripcion": "Trigo",
     "fecha": "2024-01-08",
     "cantidad": 16,
     "costo_unitario": 70,
@@ -105,7 +105,7 @@
   },
   {
     "codigo": 14,
-    "descripcion": "Daniel Kim",
+    "descripcion": "Cebada",
     "fecha": "2024-03-28",
     "cantidad": 18,
     "costo_unitario": 55,
@@ -113,7 +113,7 @@
   },
   {
     "codigo": 15,
-    "descripcion": "Ashley White",
+    "descripcion": "Sorgo",
     "fecha": "2024-04-22",
     "cantidad": 4,
     "costo_unitario": 400,

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -20,62 +20,59 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Plus } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-const userFormSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+const SaldoFormSchema = z.object({
+  codigo: z.string().min(3, {
+    message: "Por favor ingrese al menos 3 carácteres.",
   }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
+  descripcion: z.string().min(3, {
+    message: "Por favor ingrese al menos 3 carácteres.",
   }),
-  role: z.string().min(1, {
-    message: "Please select a role.",
+  cantidad: z.number().min(1, {
+    message: "Por favor ingrese la cantidad.",
   }),
-  plan: z.string().min(1, {
-    message: "Please select a plan.",
+  costo_unitario: z.number().min(1, {
+    message: "Por favor ingrese el costo unitario.",
   }),
-  billing: z.string().min(1, {
-    message: "Please select a billing method.",
-  }),
-  status: z.string().min(1, {
-    message: "Please select a status.",
+  costo_total: z.number().min(1, {
+    message: "Por favor, ingrese el saldo total.",
   }),
 })
 
-type UserFormValues = z.infer<typeof userFormSchema>
+type SaldoFormValues = z.infer<typeof SaldoFormSchema>
 
-interface UserFormDialogProps {
-  onAddUser: (user: UserFormValues) => void
+interface SaldoFormDialogProps {
+  onAddSaldo: (Saldo: SaldoFormValues) => void
 }
 
-export function UserFormDialog({ onAddUser }: UserFormDialogProps) {
+export function SaldoFormDialog({ onAddSaldo }: SaldoFormDialogProps) {
   const [open, setOpen] = useState(false)
 
-  const form = useForm<UserFormValues>({
-    resolver: zodResolver(userFormSchema),
+  const form = useForm<SaldoFormValues>({
+    resolver: zodResolver(SaldoFormSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      role: "",
-      plan: "",
-      billing: "",
-      status: "",
+      codigo: "",
+      descripcion: "",
+      cantidad: 0,
+      costo_unitario: 0,
+      costo_total: 0,
     },
   })
 
-  function onSubmit(data: UserFormValues) {
-    onAddUser(data)
+    // Observa cantidad y costoUnitario y actualiza saldoTotal automáticamente
+  const cantidad = form.watch("cantidad") || 0
+  const costo_unitario = form.watch("costo_unitario") || 0
+
+  useEffect(() => {
+    form.setValue("costo_total", cantidad * costo_unitario)
+  }, [cantidad, costo_unitario, form])
+
+  function onSubmit(data: SaldoFormValues) {
+    onAddSaldo(data)
     form.reset()
     setOpen(false)
   }
@@ -85,26 +82,30 @@ export function UserFormDialog({ onAddUser }: UserFormDialogProps) {
       <DialogTrigger asChild>
         <Button className="cursor-pointer">
           <Plus className="mr-2 h-4 w-4" />
-          Add New User
+          Saldo Inicial
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Add New User</DialogTitle>
+          <DialogTitle>Nuevo Saldo Inicial</DialogTitle>
           <DialogDescription>
-            Create a new user account. Click save when you're done.
+            Agregar un nuevo saldo inicial para iniciar el procesamiento
+            correcto de los registros.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
-              name="name"
+              name="codigo"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Código</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter full name" {...field} />
+                    <Input
+                      placeholder="Ingresa el código del producto"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -112,12 +113,15 @@ export function UserFormDialog({ onAddUser }: UserFormDialogProps) {
             />
             <FormField
               control={form.control}
-              name="email"
+              name="descripcion"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Descripcion</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter email address" {...field} />
+                    <Input
+                      placeholder="Ingresa el nombre del producto"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -125,102 +129,55 @@ export function UserFormDialog({ onAddUser }: UserFormDialogProps) {
             />
             <div className="grid grid-cols-2 gap-4">
               <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Role</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger className="cursor-pointer w-full">
-                          <SelectValue placeholder="Select role" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Admin">Admin</SelectItem>
-                        <SelectItem value="Author">Author</SelectItem>
-                        <SelectItem value="Editor">Editor</SelectItem>
-                        <SelectItem value="Maintainer">Maintainer</SelectItem>
-                        <SelectItem value="Subscriber">Subscriber</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              control={form.control}
+              name="cantidad"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Cantidad</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="Ingrese la cantidad" {...field}onChange={e => field.onChange(parseFloat(e.target.value))}
+  value={field.value} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
               <FormField
-                control={form.control}
-                name="plan"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Plan</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger className="cursor-pointer w-full">
-                          <SelectValue placeholder="Select plan" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Basic">Basic</SelectItem>
-                        <SelectItem value="Professional">Professional</SelectItem>
-                        <SelectItem value="Enterprise">Enterprise</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              control={form.control}
+              name="costo_unitario"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Costo Unitario</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="Ingrese el costo unitario" {...field}onChange={e => field.onChange(parseFloat(e.target.value))}
+  value={field.value} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <FormField
-                control={form.control}
-                name="billing"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Billing</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger className="cursor-pointer w-full">
-                          <SelectValue placeholder="Select billing" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Auto Debit">Auto Debit</SelectItem>
-                        <SelectItem value="UPI">UPI</SelectItem>
-                        <SelectItem value="Paypal">Paypal</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Status</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger className="cursor-pointer w-full">
-                          <SelectValue placeholder="Select status" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Active">Active</SelectItem>
-                        <SelectItem value="Pending">Pending</SelectItem>
-                        <SelectItem value="Error">Error</SelectItem>
-                        <SelectItem value="Inactive">Inactive</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              control={form.control}
+              name="costo_total"
+              render={() => (
+                <FormItem>
+                  <FormLabel>Costo Total</FormLabel>
+                  <FormControl>
+                    <Input type="number"
+                        placeholder="..."
+                        value={cantidad * costo_unitario}
+                        readOnly />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             </div>
             <DialogFooter>
               <Button type="submit" className="cursor-pointer">
-                Save User
+                Guardar Saldo
               </Button>
             </DialogFooter>
           </form>

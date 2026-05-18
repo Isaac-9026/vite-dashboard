@@ -3,9 +3,11 @@
 import { useState } from "react"
 import { BaseLayout } from "@/components/layouts/base-layout"
 import { DataTable } from "./components/data-table"
+import { SaldoFormDialog } from "./components/user-form-dialog" //MODAL para agregar saldo
+import initialSaldosDataJSON from "./data.json"
 
 interface Saldo {
-  id: number
+  id: number 
   codigo: string
   descripcion: string
   fecha: string
@@ -14,15 +16,32 @@ interface Saldo {
   costo_total: number
 }
 
-// Aquí va tu JSON de saldos
-const initialSaldosData = [
-  { codigo: "001", descripcion: "Producto A", fecha: "2024-05-01", cantidad: 10, costo_unitario: 50, costo_total: 500 },
-  { codigo: "002", descripcion: "Producto B", fecha: "2024-05-02", cantidad: 5, costo_unitario: 100, costo_total: 500 },
-  { codigo: "003", descripcion: "Producto C", fecha: "2024-05-03", cantidad: 20, costo_unitario: 25, costo_total: 500 },
-].map((s, index) => ({ id: index + 1, ...s })) // Generamos IDs automáticos
+interface SaldoFormValues {
+  descripcion: string
+  cantidad: number
+  costo_unitario: number
+  costo_total: number
+}
 
 export default function SaldosPage() {
-  const [saldos, setSaldos] = useState<Saldo[]>(initialSaldosData)
+  // Cargamos los datos iniciales del JSON y agregamos ID automático
+  const [saldos, setSaldos] = useState<Saldo[]>(
+  initialSaldosDataJSON.map((saldo, index) => ({
+    id: index + 1,
+    ...saldo,
+    codigo: String(saldo.codigo)//ahora es string
+  }))
+)
+
+  const handleAddSaldo = (saldoData: SaldoFormValues) => {
+  const newSaldo: Saldo = {
+    id: saldos.length > 0 ? Math.max(...saldos.map(s => s.id)) + 1 : 1,
+    codigo: saldos.length > 0 ? String(Math.max(...saldos.map(s => Number(s.codigo))) + 1) : "1",
+    fecha: new Date().toISOString().split("T")[0],
+    ...saldoData
+  }
+  setSaldos(prev => [newSaldo, ...prev])
+}
 
   const handleEditSaldo = (saldo: Saldo) => {
     console.log("Editar saldo:", saldo)
@@ -32,14 +51,19 @@ export default function SaldosPage() {
     setSaldos(prev => prev.filter(s => s.id !== id))
   }
 
-  return (
-    <BaseLayout title="Saldos" description="Gestiona tus saldos">
+   return (
+    <BaseLayout 
+      title="Saldos Anteriores" 
+      description="Registro de saldos iniciales para iniciar el procesamiento de Excels."
+    >
       <div className="flex flex-col gap-4">
         <div className="@container/main px-4 lg:px-6 mt-8 lg:mt-1">
-          <DataTable
+         
+          <DataTable 
             saldos={saldos}
-            onEdit={handleEditSaldo}
             onDelete={handleDeleteSaldo}
+            onEdit={handleEditSaldo}
+            onAddSaldo={handleAddSaldo}
           />
         </div>
       </div>

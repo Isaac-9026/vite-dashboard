@@ -6,24 +6,54 @@ import {
   type ColumnFiltersState,
   type SortingState,
   type VisibilityState,
+  type Row,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-  type Row,
 } from "@tanstack/react-table"
-import { ChevronDown, EllipsisVertical, Pencil, Trash2, Download, Search } from "lucide-react"
+import {
+  ChevronDown,
+  EllipsisVertical,
+  Eye,
+  Pencil,
+  Trash2,
+  Download,
+  Search,
+} from "lucide-react"
 
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { SaldoFormDialog } from "./user-form-dialog"
 
 export interface Saldo {
   id: number
@@ -33,15 +63,25 @@ export interface Saldo {
   cantidad: number
   costo_unitario: number
   costo_total: number
+
+  
+}
+interface SaldoFormValues {
+  codigo: string
+  descripcion: string
+  cantidad: number
+  costo_unitario: number
+  costo_total: number
 }
 
 interface DataTableProps {
   saldos: Saldo[]
-  onEdit: (saldo: Saldo) => void
   onDelete: (id: number) => void
+  onEdit: (saldo: Saldo) => void
+  onAddSaldo: (SaldoData:  SaldoFormValues) => void
 }
 
-export function DataTable({ saldos, onEdit, onDelete }: DataTableProps) {
+export function DataTable({ saldos, onDelete, onEdit, onAddSaldo }: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -92,17 +132,14 @@ export function DataTable({ saldos, onEdit, onDelete }: DataTableProps) {
     {
       accessorKey: "cantidad",
       header: "Cantidad",
-      cell: ({ getValue }) => <div className="text-right">{getValue<number>().toLocaleString()}</div>,
     },
     {
       accessorKey: "costo_unitario",
       header: "Costo Unit.",
-      cell: ({ getValue }) => <div className="text-right">{getValue<number>().toLocaleString()}</div>,
     },
     {
       accessorKey: "costo_total",
       header: "Costo Total",
-      cell: ({ getValue }) => <div className="text-right font-semibold">{getValue<number>().toLocaleString()}</div>,
     },
     {
       id: "actions",
@@ -111,13 +148,13 @@ export function DataTable({ saldos, onEdit, onDelete }: DataTableProps) {
         const saldo = row.original
         return (
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" onClick={() => onEdit(saldo)}>
+            <Button variant="ghost" size="icon" className="h-8 w-8 cursor-pointer"onClick={() => onEdit(saldo)}>
               <Pencil className="size-4" />
               <span className="sr-only">Edit saldo</span>
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" className="h-8 w-8 cursor-pointer">
                   <EllipsisVertical className="size-4" />
                   <span className="sr-only">More actions</span>
                 </Button>
@@ -125,6 +162,7 @@ export function DataTable({ saldos, onEdit, onDelete }: DataTableProps) {
               <DropdownMenuContent align="end">
                 <DropdownMenuItem
                   variant="destructive"
+                  className="cursor-pointer"
                   onClick={() => onDelete(saldo.id)}
                 >
                   <Trash2 className="mr-2 size-4" />
@@ -141,22 +179,34 @@ export function DataTable({ saldos, onEdit, onDelete }: DataTableProps) {
   const table = useReactTable({
     data: saldos,
     columns,
-    state: { sorting, columnFilters, columnVisibility, rowSelection, globalFilter },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     onGlobalFilterChange: setGlobalFilter,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
+    
+    state: { 
+      sorting,
+      columnFilters,
+      columnVisibility, 
+      rowSelection, 
+      globalFilter,
+    },
   })
+
+  const roleFilter = table.getColumn("role")?.getFilterValue() as string
+  const planFilter = table.getColumn("plan")?.getFilterValue() as string
+  const statusFilter = table.getColumn("status")?.getFilterValue() as string
 
   return (
     <div className="w-full space-y-4">
       {/* Search + Export */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-1 items-center space-x-2">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
           <Input
@@ -165,13 +215,51 @@ export function DataTable({ saldos, onEdit, onDelete }: DataTableProps) {
             onChange={(e) => setGlobalFilter(e.target.value)}
             className="pl-9"
           />
+          </div>
         </div>
+        <div className="flex items-center space-x-2">
         <Button variant="outline" className="cursor-pointer">
-          <Download className="mr-2 size-4" /> Exportar
+            <Download className="mr-2 size-4" />
+            Export
         </Button>
+          <SaldoFormDialog onAddSaldo={onAddSaldo} />
+        </div>
       </div>
 
-      {/* Table */}
+      <div className="grid gap-2 sm:grid-cols-4 sm:gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="column-visibility" className="text-sm font-medium">
+            Column Visibility
+          </Label>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild id="column-visibility">
+              <Button variant="outline" className="cursor-pointer w-full">
+                Columns <ChevronDown className="ml-2 size-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  )
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -203,6 +291,65 @@ export function DataTable({ saldos, onEdit, onDelete }: DataTableProps) {
             )}
           </TableBody>
         </Table>
+      </div>
+
+      <div className="flex items-center justify-between space-x-2 py-4">
+
+        <div className="flex items-center space-x-2">
+          <Label htmlFor="page-size" className="text-sm font-medium">
+            Show
+          </Label>
+          <Select
+            value={`${table.getState().pagination.pageSize}`}
+            onValueChange={(value) => {
+              table.setPageSize(Number(value))
+            }}
+          >
+            <SelectTrigger className="w-20 cursor-pointer" id="page-size">
+              <SelectValue placeholder={table.getState().pagination.pageSize} />
+            </SelectTrigger>
+            <SelectContent side="top">
+              {[10, 20, 30, 40, 50].map((pageSize) => (
+                <SelectItem key={pageSize} value={`${pageSize}`}>
+                  {pageSize}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex-1 text-sm text-muted-foreground hidden sm:block">
+          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredRowModel().rows.length} row(s) selected.
+        </div>
+        <div className="flex items-center space-x-6 lg:space-x-8">
+          <div className="flex items-center space-x-2 hidden sm:flex">
+            <p className="text-sm font-medium">Page</p>
+            <strong className="text-sm">
+              {table.getState().pagination.pageIndex + 1} of{" "}
+              {table.getPageCount()}
+            </strong>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+              className="cursor-pointer"
+            >
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+              className="cursor-pointer"
+            >
+              Next
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   )
