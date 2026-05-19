@@ -5,6 +5,21 @@ import {
   LayoutPanelLeft,
   LayoutDashboard,
   Users,
+  Monitor,
+  ArrowLeft,
+  ArrowLeftRight,
+  History,
+  Repeat,
+  PiggyBank,
+  Wallet,
+  BadgeDollarSign,
+  Package,
+  Boxes,
+  ArrowUpDown,
+  Workflow,
+  ClipboardList,
+  Landmark,
+  Archive,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Logo } from "@/components/logo"
@@ -30,17 +45,32 @@ const data = {
   },
   navGroups: [
     {
-      label: "Dashboards",
+      label: "Principal",
       items: [
         {
-          title: "Dashboard 1",
+          title: "Dashboard",
           url: "/dashboard",
           icon: LayoutDashboard,
         },
         {
-          title: "Dashboard 2",
+          title: "Procesar",
           url: "/dashboard-2",
-          icon: LayoutPanelLeft,
+          icon: Workflow,
+        },
+        {
+          title: "Historial",
+          url: "/historial",
+          icon: ClipboardList,
+        },
+      ],
+    },
+    {
+      label: "Análisis",
+      items: [
+        {
+          title: "Movimientos",
+          url: "/movimientos",
+          icon: ArrowUpDown,
         },
       ],
     },
@@ -50,7 +80,12 @@ const data = {
         {
           title: "Saldos Iniciales",
           url: "/users",
-          icon: Users,
+          icon: Archive,
+        },
+        {
+          title: "Productos",
+          url: "/productos",
+          icon: Boxes,
         },
       ],
     },
