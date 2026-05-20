@@ -2,23 +2,11 @@
 
 import * as React from "react"
 import {
-  LayoutPanelLeft,
   LayoutDashboard,
-  Users,
-  Monitor,
-  ArrowLeft,
-  ArrowLeftRight,
-  History,
-  Repeat,
-  PiggyBank,
-  Wallet,
-  BadgeDollarSign,
-  Package,
   Boxes,
   ArrowUpDown,
   Workflow,
   ClipboardList,
-  Landmark,
   Archive,
 } from "lucide-react"
 import { Link } from "react-router-dom"
