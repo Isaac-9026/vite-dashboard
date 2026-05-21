@@ -1,0 +1,133 @@
+[
+  {
+    "codigo": "1001",
+    "descripcion": "Laptop Lenovo ThinkPad E14",
+    "fecha": "2026-05-01",
+    "tipo_comprobante": "FACT",
+    "serie": "F001",
+    "numero": "000125",
+    "tipo_operacion": "Compra",
+
+    "ent_cantidad": 10,
+    "ent_costo_unit": 2500.00000,
+    "ent_costo_total": 25000.00,
+
+    "sal_cantidad": 0,
+    "sal_costo_unit": 0,
+    "sal_costo_total": 0,
+
+    "saldo_cantidad": 10,
+    "saldo_costo_unit": 2500.00000,
+    "saldo_costo_total": 25000.00
+  },
+
+  {
+    "codigo": "1001",
+    "descripcion": "Laptop Lenovo ThinkPad E14",
+    "fecha": "2026-05-03",
+    "tipo_comprobante": "GUIA",
+    "serie": "T001",
+    "numero": "000231",
+    "tipo_operacion": "Venta",
+
+    "ent_cantidad": 0,
+    "ent_costo_unit": 0,
+    "ent_costo_total": 0,
+
+    "sal_cantidad": 2,
+    "sal_costo_unit": 2500.00000,
+    "sal_costo_total": 5000.00,
+
+    "saldo_cantidad": 8,
+    "saldo_costo_unit": 2500.00000,
+    "saldo_costo_total": 20000.00
+  },
+
+  {
+    "codigo": "1002",
+    "descripcion": "Mouse Logitech G203",
+    "fecha": "2026-05-04",
+    "tipo_comprobante": "FACT",
+    "serie": "F002",
+    "numero": "000455",
+    "tipo_operacion": "Compra",
+
+    "ent_cantidad": 50,
+    "ent_costo_unit": 95.50000,
+    "ent_costo_total": 4775.00,
+
+    "sal_cantidad": 0,
+    "sal_costo_unit": 0,
+    "sal_costo_total": 0,
+
+    "saldo_cantidad": 50,
+    "saldo_costo_unit": 95.50000,
+    "saldo_costo_total": 4775.00
+  },
+
+  {
+    "codigo": "1002",
+    "descripcion": "Mouse Logitech G203",
+    "fecha": "2026-05-06",
+    "tipo_comprobante": "BOLETA",
+    "serie": "B001",
+    "numero": "000872",
+    "tipo_operacion": "Venta",
+
+    "ent_cantidad": 0,
+    "ent_costo_unit": 0,
+    "ent_costo_total": 0,
+
+    "sal_cantidad": 8,
+    "sal_costo_unit": 95.50000,
+    "sal_costo_total": 764.00,
+
+    "saldo_cantidad": 42,
+    "saldo_costo_unit": 95.50000,
+    "saldo_costo_total": 4011.00
+  },
+
+  {
+    "codigo": "1003",
+    "descripcion": "Monitor Samsung 24 pulgadas",
+    "fecha": "2026-05-08",
+    "tipo_comprobante": "FACT",
+    "serie": "F001",
+    "numero": "000611",
+    "tipo_operacion": "Compra",
+
+    "ent_cantidad": 15,
+    "ent_costo_unit": 780.25000,
+    "ent_costo_total": 11703.75,
+
+    "sal_cantidad": 0,
+    "sal_costo_unit": 0,
+    "sal_costo_total": 0,
+
+    "saldo_cantidad": 15,
+    "saldo_costo_unit": 780.25000,
+    "saldo_costo_total": 11703.75
+  },
+
+  {
+    "codigo": "1003",
+    "descripcion": "Monitor Samsung 24 pulgadas",
+    "fecha": "2026-05-10",
+    "tipo_comprobante": "GUIA",
+    "serie": "T003",
+    "numero": "000921",
+    "tipo_operacion": "Venta",
+
+    "ent_cantidad": 0,
+    "ent_costo_unit": 0,
+    "ent_costo_total": 0,
+
+    "sal_cantidad": 3,
+    "sal_costo_unit": 780.25000,
+    "sal_costo_total": 2340.75,
+
+    "saldo_cantidad": 12,
+    "saldo_costo_unit": 780.25000,
+    "saldo_costo_total": 9363.00
+  }
+]
