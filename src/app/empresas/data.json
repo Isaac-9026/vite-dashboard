@@ -1,0 +1,17 @@
+[
+  {
+    "codigo": 1,
+    "ruc": "0000000",
+    "descripcion": "SIN ASIGNAR"
+  },
+  {
+    "codigo": 2,
+    "ruc": "20876543212",
+    "descripcion": "Mayorista Merino"
+  },
+  {
+    "codigo": 3,
+    "ruc": "33456543243",
+    "descripcion": "Avicola Martinez"
+  }
+]
