@@ -67,12 +67,17 @@ const data = {
       items: [
         {
           title: "Saldos Iniciales",
-          url: "/users",
+          url: "/saldos",
           icon: Archive,
         },
         {
           title: "Productos",
           url: "/productos",
+          icon: Boxes,
+        },
+        {
+          title: "Empresas",
+          url: "/empresas",
           icon: Boxes,
         },
       ],

@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { BaseLayout } from "@/components/layouts/base-layout"
 import { DataTable } from "./components/data-table"
-import { SaldoFormDialog } from "./components/user-form-dialog" //MODAL para agregar saldo
+import { SaldoFormDialog } from "./components/saldo-form-dialog" //MODAL para agregar saldo
 import initialSaldosDataJSON from "./data.json"
 
 interface Saldo {

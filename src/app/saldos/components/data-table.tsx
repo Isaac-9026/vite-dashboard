@@ -53,7 +53,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { SaldoFormDialog } from "./user-form-dialog"
+import { SaldoFormDialog } from "./saldo-form-dialog"
 
 export interface Saldo {
   id: number

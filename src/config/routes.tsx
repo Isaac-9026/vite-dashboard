@@ -4,7 +4,8 @@ import { Navigate } from 'react-router-dom'
 const Dashboard = lazy(() => import('@/app/dashboard/page'))
 const Dashboard2 = lazy(() => import('@/app/dashboard-2/page'))
 const Movimientos = lazy(() => import('@/app/movimientos/page'))
-const Users = lazy(() => import('@/app/users/page'))
+const Empresas = lazy(() => import('@/app/empresas/page'))
+const Saldos = lazy(() => import('@/app/saldos/page'))
 
 export interface RouteConfig {
   path: string
@@ -34,8 +35,13 @@ export const routes: RouteConfig[] = [
   },
 
   {
-    path: "/users",
-    element: <Users />
+    path: "/empresas",
+    element: <Empresas />
+  },
+
+  {
+    path: "/saldos",
+    element: <Saldos />
   },
 
   {
