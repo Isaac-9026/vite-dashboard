@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "empresa_id": 2,
+    "codigo": "PROD-001",
+    "descripcion": "Maíz Morado Culli Seleccionado",
+    "unidad_medida": "KGM",
+    "codigo_existencia": "01",
+    "creado_en": "2026-06-01T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "empresa_id": 2,
+    "codigo": "PROD-002",
+    "descripcion": "Chuño Blanco de Papa Nativa",
+    "unidad_medida": "KGM",
+    "codigo_existencia": "01",
+    "creado_en": "2026-06-02T11:15:00Z"
+  },
+  {
+    "id": 3,
+    "empresa_id": 1,
+    "codigo": "PROD-003",
+    "descripcion": "Envase de Polipropileno para Harinas 1kg",
+    "unidad_medida": "NIU",
+    "codigo_existencia": "04",
+    "creado_en": "2026-06-05T14:30:00Z"
+  },
+  {
+    "id": 4,
+    "empresa_id": 3,
+    "codigo": "PROD-004",
+    "descripcion": "Saco de Yute Reforzado 50kg",
+    "unidad_medida": "NIU",
+    "codigo_existencia": "04",
+    "creado_en": "2026-06-08T09:00:00Z"
+  }
+]

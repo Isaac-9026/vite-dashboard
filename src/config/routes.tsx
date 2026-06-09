@@ -6,6 +6,7 @@ const Dashboard2 = lazy(() => import('@/app/dashboard-2/page'))
 const Movimientos = lazy(() => import('@/app/movimientos/page'))
 const Empresas = lazy(() => import('@/app/empresas/page'))
 const Saldos = lazy(() => import('@/app/saldos/page'))
+const Productos = lazy(() => import('@/app/productos/page'))
 
 export interface RouteConfig {
   path: string
@@ -42,6 +43,11 @@ export const routes: RouteConfig[] = [
   {
     path: "/saldos",
     element: <Saldos />
+  },
+
+  {
+    path: "/productos",
+    element: <Productos />
   },
 
   {
