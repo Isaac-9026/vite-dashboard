@@ -1,0 +1,34 @@
+[
+  {
+    "id": 104,
+    "nombre_archivo": "KARDEX_MAIZ_MORADO_JUNIO_2026.xlsx",
+    "estado": "procesado",
+    "total_registros": 1420,
+    "productos_procesados": 12,
+    "creado_en": "2026-06-12T18:30:00Z"
+  },
+  {
+    "id": 103,
+    "nombre_archivo": "IMPORT_SALDOS_CHUNO_V3.xlsx",
+    "estado": "con_alertas",
+    "total_registros": 850,
+    "productos_procesados": 4,
+    "creado_en": "2026-06-10T14:15:00Z"
+  },
+  {
+    "id": 102,
+    "nombre_archivo": "KARDEX_CORRUPTO_TEST.csv",
+    "estado": "error",
+    "total_registros": 0,
+    "productos_procesados": 0,
+    "creado_en": "2026-06-05T09:45:00Z"
+  },
+  {
+    "id": 101,
+    "nombre_archivo": "SALDOS_INICIALES_EMPRESAS_2026.xlsx",
+    "estado": "procesado",
+    "total_registros": 340,
+    "productos_procesados": 45,
+    "creado_en": "2026-06-01T08:00:00Z"
+  }
+]
