@@ -1,7 +1,7 @@
 import { lazy } from 'react'
 import { Navigate } from 'react-router-dom'
 
-const Dashboard = lazy(() => import('@/app/dashboard/page'))
+const Procesar = lazy(() => import('@/app/procesar/page'))
 const Dashboard2 = lazy(() => import('@/app/dashboard-2/page'))
 const Historial = lazy(() => import('@/app/historial/page'))
 const Movimientos = lazy(() => import('@/app/movimientos/page'))
@@ -22,8 +22,8 @@ export const routes: RouteConfig[] = [
   },
 
   {
-    path: "/dashboard",
-    element: <Dashboard />
+    path: "/procesar",
+    element: <Procesar/>
   },
 
   {

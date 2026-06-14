@@ -36,8 +36,8 @@ const data = {
       label: "Principal",
       items: [
         {
-          title: "Dashboard",
-          url: "/dashboard",
+          title: "Procesar",
+          url: "/procesar",
           icon: LayoutDashboard,
         },
         {
